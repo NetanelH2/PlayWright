@@ -12,9 +12,14 @@ test.describe.only('Exercises', () => {
 
     test('exercise 1', async ({page}) => {
         await page.goto('https://devexpress.github.io/testcafe/example/')
-        await page.getByTestId('remote-testing-checkbox').check()
-        await page.getByTestId('reusing-js-code-checkbox').check()
-        await page.getByTestId('parallel-testing-checkbox').check()
-        await expect(locator).toBeChecked()
+        const locatorArray = [
+            'remote-testing-checkbox',
+            'reusing-js-code-checkbox',
+            'parallel-testing-checkbox',
+        ]
+        for (let locatorString of locatorArray) {
+            await page.getByTestId(locatorString).check()
+            await expect(page.getByTestId(locatorString)).toBeChecked()
+        }
     })
 })
